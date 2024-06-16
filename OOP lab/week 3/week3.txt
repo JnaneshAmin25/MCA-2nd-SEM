@@ -1,0 +1,210 @@
+import java.util.Scanner;
+
+class Shop
+{
+    private int itemId;
+    private String itemName;
+    private int quantity;
+    private double unitPrice;
+    private double totalBillAmount;
+
+    public Shop(int itemId, String itemName, int quantity, double unitPrice)
+    {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.totalBillAmount = quantity * unitPrice;
+    }
+
+    public double calculateDiscount()
+    {
+        if (totalBillAmount < 500)
+        {
+            return 0;
+        } else if (totalBillAmount >= 500 && totalBillAmount <= 1000)
+        {
+            return 0.1 * totalBillAmount;
+        } else if (totalBillAmount > 1000 && totalBillAmount <= 2000)
+        {
+            return 0.12 * totalBillAmount;
+        } else
+        {
+            return 0.15 * totalBillAmount;
+        }
+    }
+
+    public double getTotalBillAmount()
+    {
+        return totalBillAmount;
+    }
+
+    public void displayDetails()
+    {
+        System.out.println("Item ID: " + itemId);
+        System.out.println("Item Name: " + itemName);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Unit Price: " + unitPrice);
+        System.out.println("Total Bill Amount: " + totalBillAmount);
+    }
+}
+
+public class Shopping
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Item ID: ");
+        int itemId = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter Item Name: ");
+        String itemName = scanner.nextLine();
+
+        System.out.print("Enter Quantity: ");
+        int quantity = scanner.nextInt();
+
+        System.out.print("Enter Unit Price: ");
+        double unitPrice = scanner.nextDouble();
+
+        Shop objshop = new Shop(itemId, itemName, quantity, unitPrice);
+        System.out.println("\n1. Display Details");
+		System.out.println("2. Calculate Discount");
+		System.out.println("3. Exit");
+		int choice;
+         do
+         {
+
+
+		                System.out.print("Enter your choice (1/2/3): ");
+		                choice = scanner.nextInt();
+
+		                switch (choice)
+		                {
+		                    case 1:
+		                        objshop.displayDetails();
+		                        break;
+		                    case 2:
+		                        double discount = objshop.calculateDiscount();
+		                        System.out.println("Discount: " + discount);
+		                        System.out.println("Total Payable Amount: " + (objshop.getTotalBillAmount() - discount));
+		                        break;
+		                    case 3:
+		                        System.out.println("Exiting the program.");
+		                        break;
+		                    default:
+		                        System.out.println("Invalid choice. Please try again.");
+		                }
+            } while (choice != 3);
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Box
+{
+    private double width;
+    private double height;
+    private double depth;
+
+
+    public Box(double width, double height, double depth)
+    {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
+
+
+    public double calculateVolume()
+    {
+        return width * height * depth;
+    }
+}
+
+public class BoxVolume
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the width of the box: ");
+        double width = scanner.nextDouble();
+
+        System.out.print("Enter the height of the box: ");
+        double height = scanner.nextDouble();
+
+        System.out.print("Enter the depth of the box: ");
+        double depth = scanner.nextDouble();
+
+        Box myBox = new Box(width, height, depth);
+
+        double volume = myBox.calculateVolume();
+        System.out.println("Volume of the box: " + volume);
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Employee
+{
+    private int empCode;
+    private String empName;
+    private double basic;
+    private double hra;
+    private double it;
+    private double pf;
+    private double grossSal;
+    private double netSal;
+
+    public void readData()
+    {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Employee Code: ");
+        empCode = sc.nextInt();
+        
+	sc.nextLine();
+	System.out.print("Enter Employee Name: ");
+        empName = sc.nextLine();
+
+        System.out.print("Enter Basic Salary: Rs.");
+        basic = sc.nextDouble();
+    }
+
+    private void calculateSalaryComponents()
+    {
+        hra = 0.075 * basic;
+        it = 200;
+        pf = 0.12 * basic;
+        grossSal = basic + hra;
+        netSal = grossSal - (it + pf);
+    }
+
+    public void displayData()
+    {
+        calculateSalaryComponents();
+
+        System.out.println("\nEmployee Details:");
+        System.out.println("Employee Code: " + empCode);
+        System.out.println("Employee Name: " + empName);
+        System.out.println("Basic Salary: Rs." + basic);
+        System.out.println("HRA: Rs." + hra);
+        System.out.println("IT: Rs." + it);
+        System.out.println("PF: Rs." + pf);
+        System.out.println("Gross Salary: Rs." + grossSal);
+        System.out.println("Net Salary: Rs." + netSal);
+    }
+}
+
+public class EmployeeMain
+{
+    public static void main(String[] args)
+    {
+        Employee emp = new Employee();
+        emp.readData();
+        emp.displayData();
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------
