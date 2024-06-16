@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+const int MAX_DEGREE = 100;
+struct Polynomial {
+    int degree;
+    int coefficients[MAX_DEGREE + 1];
+};
+Polynomial addPolynomials(const Polynomial& poly1, const Polynomial& poly2) {
+    Polynomial result;
+    result.degree = max(poly1.degree, poly2.degree);
+    for (int i = 0; i <= result.degree; ++i) {
+        result.coefficients[i] = poly1.coefficients[i] + poly2.coefficients[i];
+    }
+    return result;
+}
+void displayPolynomial(const Polynomial& poly) {
+    for (int i = poly.degree; i >= 0; i--) {
+        if (poly.coefficients[i] != 0) {
+            if (i == poly.degree)
+                cout << poly.coefficients[i] << "x^" << i;
+            else
+                cout << " + " << poly.coefficients[i] << "x^" << i;
+        }
+    }
+    cout << endl;
+}
+
+int main() {
+    Polynomial poly1, poly2, result;
+
+    cout << "Enter the degree of the first polynomial: ";
+    cin >> poly1.degree;
+
+    cout << "Enter coefficients for polynomial one (in decreasing order):\n";
+    for (int i = poly1.degree; i >= 0; i--) {
+        cout << "Coefficient of x^" << i << ": ";
+        cin >> poly1.coefficients[i];
+    }
+
+    cout << "Enter the degree of the second polynomial: ";
+    cin >> poly2.degree;
+
+    cout << "Enter coefficients for polynomial two (in decreasing order):\n";
+    for (int i = poly2.degree; i >= 0; i--) {
+        cout << "Coefficient of x^" << i << ": ";
+        cin >> poly2.coefficients[i];
+    }
+
+    result = addPolynomials(poly1, poly2);
+
+    cout << "Polynomial 1: ";
+    displayPolynomial(poly1);
+
+    cout << "Polynomial 2: ";
+    displayPolynomial(poly2);
+
+    cout << "Sum: ";
+    displayPolynomial(result);
+
+    return 0;
+}
